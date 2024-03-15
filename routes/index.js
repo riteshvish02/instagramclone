@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var usermodel = require("./users")
 var postmodel = require("./posts")
+var reelmodel = require("./reel")
 const passport = require("passport")
 const localstrategy = require("passport-local")
 const upload = require("./multer")
@@ -17,8 +18,10 @@ router.get('/', function(req, res) {
   res.render('index', {footer: false});
 });
 
-router.get('/reel', function(req, res) {
-  res.render('reel');
+router.get('/reel',isLoggedIn,async function(req, res) {
+  let user = await usermodel.findOne({username:req.session.passport.user})
+  let reels = await reelmodel.find().populate("user")
+  res.render('reel',{user,reels});
 });
 
 
@@ -259,6 +262,24 @@ router.post('/upload',isLoggedIn,upload.single("file"),async function(req, res) 
 
  await user.save();
  res.redirect("/feed");
+
+});
+
+router.post('/uploadreel',isLoggedIn,upload.single("file"),async function(req, res) {
+
+  let user = await usermodel.findOne({username:req.session.passport.user})
+ 
+    let reel =  await reelmodel.create({
+      caption:req.body.caption,
+      video:req.file.filename,
+      user:user._id
+    })
+
+    console.log(reel);
+ user.reels.push(reel._id); 
+
+ await user.save();
+ res.redirect("/reel");
 
 });
 

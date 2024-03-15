@@ -29,10 +29,18 @@ const userSchema = mongoose.Schema({
     type:mongoose.Schema.Types.ObjectId,
     ref:"post"    
   }],
+  reels:[{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"reel"    
+  }],
   createdat:{
     type:Date,
     default:Date.now()
   },
+  comments:[{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"comment"
+  }],
   email:{
     required:[true,"email is required for creating user"],
     type:String,

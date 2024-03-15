@@ -95,7 +95,7 @@
          icon.classList.remove('ri-heart-3-fill','text-red-500')
         }
          
-         ev.target.parentNode.parentNode.parentNode.querySelector('.likes').textContent = res.data.likes.length + `likes` ;
+         ev.target.parentNode.parentNode.parentNode.querySelector('.likes').textContent = res.data.likes.length + " " + `Likes` ;
        })
       }
     })
@@ -123,7 +123,7 @@
         }
 
         var likes = ev.target.parentNode.parentNode.querySelector(".likes")
-         likes.textContent = res.data.likes.length + " " + "likes";
+         likes.textContent = res.data.likes.length + " " + "Likes";
         //  ev.target.parentNode.parentNode.parentNode.querySelector('.likes').textContent = res.data.likes.length + `likes` ;
   
           })
