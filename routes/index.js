@@ -141,6 +141,10 @@ router.get('/search',isLoggedIn, function(req, res) {
   res.render('search', {footer: true});
 });
 
+router.post('/comment',isLoggedIn, function(req, res) {
+  
+});
+
 router.get('/save/:postid',isLoggedIn,async function(req, res) {
   const user = await usermodel.findOne({username:req.session.passport.user})
   const post = await postmodel.findOne({_id: req.params.postid});
